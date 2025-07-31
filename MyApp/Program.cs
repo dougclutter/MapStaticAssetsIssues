@@ -22,12 +22,16 @@ else
 
 app.UseHttpsRedirection();
 app.UsePathBase("/forms");
+app.UseRouting();
 
 app.UseAntiforgery();
 
-app.MapStaticAssets();
-app.MapRazorComponents<App>()
-    .AddInteractiveWebAssemblyRenderMode(options => options.PathPrefix = "/form1")
-    .AddAdditionalAssemblies(typeof(MyApp.Client._Imports).Assembly);
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapStaticAssets();
+    endpoints.MapRazorComponents<App>()
+        .AddInteractiveWebAssemblyRenderMode(options => options.PathPrefix = "/form1")
+        .AddAdditionalAssemblies(typeof(MyApp.Client._Imports).Assembly);
+});
 
 app.Run();
